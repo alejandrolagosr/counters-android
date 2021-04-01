@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <dimen name="no_width">0dp</dimen>
+    <dimen name="no_height">0dp</dimen>
+
+</resources>
