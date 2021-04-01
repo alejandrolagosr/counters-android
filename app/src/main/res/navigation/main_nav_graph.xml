@@ -3,22 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/welcome_fragment_dest">
 
     <fragment
-        android:id="@+id/welcomeFragment"
+        android:id="@+id/welcome_fragment_dest"
         android:name="com.flagos.cscounters.welcome.WelcomeFragment"
-        android:label="WelcomeFragment" />
+        android:label="WelcomeFragment">
+        <action
+            android:id="@+id/action_welcome_fragment_dest_to_main_fragment_dest"
+            app:destination="@id/main_fragment_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/main_fragment_dest"
         android:name="com.flagos.cscounters.main.MainFragment"
         android:label="MainFragment" />
     <fragment
-        android:id="@+id/createItemFragment"
+        android:id="@+id/create_item_fragment_dest"
         android:name="com.flagos.cscounters.create.CreateItemFragment"
         android:label="CreateItemFragment" />
     <fragment
-        android:id="@+id/examplesFragment"
+        android:id="@+id/examples_fragment_dest"
         android:name="com.flagos.cscounters.examples.ExamplesFragment"
         android:label="fragment_examples"
         tools:layout="@layout/fragment_examples" />
