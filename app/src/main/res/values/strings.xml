@@ -1,5 +1,10 @@
 <resources>
 
-    <string name="app_name">CSCounters</string>
+    <!-- General -->
+    <string name="app_name">Counters</string>
+
+    <!-- Welcome -->
+    <string name="text_welcome_desc">Capture cups of lattes, frapuccinos,\nor anything else that can be counted.</string>
+    <string name="text_welcome_get_started">GET STARTED</string>
 
 </resources>

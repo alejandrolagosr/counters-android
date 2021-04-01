@@ -5,4 +5,20 @@
     <dimen name="no_width">0dp</dimen>
     <dimen name="no_height">0dp</dimen>
 
+    <!-- Letter Spacing -->
+    <dimen name="letter_spacing_default">0.02</dimen>
+
+    <!-- Font Size -->
+    <dimen name="font_size_titles">22sp</dimen>
+    <dimen name="font_size_default">17sp</dimen>
+    <dimen name="font_size_buttons">15sp</dimen>
+
+    <!-- Margins -->
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_50">50dp</dimen>
+
+    <!-- Height -->
+    <dimen name="height_button_default">48dp</dimen>
+
 </resources>
