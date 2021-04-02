@@ -7,4 +7,15 @@
     <string name="text_welcome_desc">Capture cups of lattes, frapuccinos,\nor anything else that can be counted.</string>
     <string name="text_welcome_get_started">GET STARTED</string>
 
+    <!-- Main -->
+    <string name="text_main_add_counter">ADD COUNTER</string>
+    <string name="text_main_search_counters">Search Counters</string>
+
+    <!-- Errors -->
+    <string name="text_error_no_counters_title">No counters yet</string>
+    <string name="text_error_no_counters_desc">"When I started counting my blessings,\nmy whole life turned around."\n-Willie Nelson</string>
+    <string name="text_error_no_internet_title">Couldn´t load the counters</string>
+    <string name="text_error_no_internet_desc">The Internet connection appears to be offline.</string>
+    <string name="text_error_retry">Retry</string>
+
 </resources>

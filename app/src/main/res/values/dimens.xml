@@ -15,10 +15,20 @@
 
     <!-- Margins -->
     <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_30">30dp</dimen>
     <dimen name="margin_50">50dp</dimen>
 
+    <!-- Padding -->
+    <dimen name="padding_10">10dp</dimen>
+
     <!-- Height -->
     <dimen name="height_button_default">48dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_rounded_button_bg">20dp</dimen>
+
+    <!-- Alpha -->
+    <dimen name="alpha_view_translucent">0.5</dimen>
 
 </resources>

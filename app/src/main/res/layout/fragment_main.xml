@@ -6,12 +6,76 @@
     android:layout_height="match_parent"
     tools:context=".main.MainFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edit_text_main_search_counters"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Main Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:background="@drawable/background_search"
+        android:backgroundTint="@color/white"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="@dimen/padding_10"
+        android:hint="@string/text_main_search_counters"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="@dimen/padding_10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_main_items"
+        style="@style/TextAppearance.Common"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_main_search_counters"
+        tools:text="4 items" />
+
+    <TextView
+        android:id="@+id/text_main_times"
+        style="@style/TextAppearance.Common"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textColor="@color/gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/text_main_items"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_main_search_counters"
+        tools:text="17 times" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/button_main_add_counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_main_items"
+        tools:listitem="@layout/item_counter" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_main_add_counter"
+        style="@style/Widget.App.Button.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_30"
+        android:text="@string/text_main_add_counter"
+        app:icon="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_main" />
 </androidx.constraintlayout.widget.ConstraintLayout>

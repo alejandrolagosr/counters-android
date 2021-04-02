@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_10">
+
+    <TextView
+        android:id="@+id/text_counter_name"
+        style="@style/TextAppearance.Common"
+        android:layout_width="@dimen/no_width"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image_counter_less"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Cups of coffee" />
+
+    <ImageView
+        android:id="@+id/image_counter_less"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:padding="@dimen/padding_10"
+        android:src="@drawable/ic_less"
+        app:layout_constraintBottom_toBottomOf="@+id/text_counter"
+        app:layout_constraintEnd_toStartOf="@+id/text_counter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text_counter_name"
+        app:layout_constraintTop_toTopOf="@+id/text_counter" />
+
+    <TextView
+        android:id="@+id/text_counter"
+        style="@style/TextAppearance.Common"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_counter_more"
+        app:layout_constraintEnd_toStartOf="@+id/image_counter_more"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/image_counter_less"
+        app:layout_constraintTop_toTopOf="@+id/image_counter_more"
+        tools:text="5" />
+
+    <ImageView
+        android:id="@+id/image_counter_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:padding="8dp"
+        android:src="@drawable/ic_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text_counter"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

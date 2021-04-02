@@ -2,7 +2,7 @@
 <resources>
 
     <!-- TextAppearance -->
-    <style name="TextAppearance.Titles" parent="Base.TextAppearance.AppCompat">
+    <style name="TextAppearance.Title" parent="Base.TextAppearance.AppCompat">
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/font_size_titles</item>
@@ -20,6 +20,13 @@
         <item name="android:layout_marginTop">@dimen/margin_10</item>
     </style>
 
+    <style name="TextAppearance.Common" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/font_size_default</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_default</item>
+    </style>
+
     <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">@dimen/font_size_buttons</item>
@@ -33,6 +40,7 @@
         <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.LargeComponent</item>
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/orange</item>
+        <item name="android:background">@drawable/background_button</item>
     </style>
 
     <style name="Widget.App.Button.Secondary" parent="TextAppearance.MaterialComponents.Button">
