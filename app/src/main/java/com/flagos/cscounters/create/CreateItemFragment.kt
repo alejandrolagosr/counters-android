@@ -1,7 +1,12 @@
 package com.flagos.cscounters.create
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -9,9 +14,11 @@ import com.flagos.common.extensions.ToolbarType
 import com.flagos.common.extensions.hideKeyboard
 import com.flagos.common.extensions.setUpFragmentToolBar
 import com.flagos.common.extensions.showKeyboard
+import com.flagos.common.extensions.observeBackStackEntry
 import com.flagos.cscounters.R
 import com.flagos.cscounters.create.CreateItemFragmentDirections.Companion.actionCreateItemFragmentDestToExamplesFragmentDest
 import com.flagos.cscounters.databinding.FragmentCreateItemBinding
+import com.flagos.cscounters.examples.ExamplesFragment.Companion.SELECTED_EXAMPLE_KEY
 
 class CreateItemFragment : Fragment() {
 
@@ -33,6 +40,7 @@ class CreateItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
+        navController.observeBackStackEntry<String>(viewLifecycleOwner, SELECTED_EXAMPLE_KEY, { binding.editTextCreateItem.setText(it) })
 
         initToolbar()
         initViews()

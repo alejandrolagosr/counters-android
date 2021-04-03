@@ -29,5 +29,6 @@
     <string name="text_examples_drinks">Drinks</string>
     <string name="text_examples_food">Food</string>
     <string name="text_examples_misc">Misc</string>
+    <string name="text_examples_title">Examples</string>
 
 </resources>
