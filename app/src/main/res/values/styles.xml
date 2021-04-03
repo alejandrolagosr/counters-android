@@ -5,7 +5,14 @@
     <style name="TextAppearance.Title" parent="Base.TextAppearance.AppCompat">
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/font_size_titles</item>
+        <item name="android:textSize">@dimen/font_size_title</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_default</item>
+    </style>
+
+    <style name="TextAppearance.Subtitle" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/font_size_subtitle</item>
         <item name="android:letterSpacing">@dimen/letter_spacing_default</item>
     </style>
 
