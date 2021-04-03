@@ -21,6 +21,8 @@
     <!-- Create Item -->
     <string name="text_create_name">Name</string>
     <string name="text_create_example_desc">Give it a name. Creative block? <u>See examples.</u></string>
+    <string name="text_create_title">Create counter</string>
+    <string name="text_create_save">Save</string>
 
     <!-- Examples -->
     <string name="text_examples_desc">Select an example to add it to your counters.</string>

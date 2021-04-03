@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/orange</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orange</item>
