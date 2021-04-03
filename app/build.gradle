@@ -17,6 +17,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -38,6 +42,8 @@ android {
 }
 
 dependencies {
+    api project(':common')
+
     def generalDependencies = rootProject.ext.generalDependencies
     implementation generalDependencies.kotlin
     implementation generalDependencies.coreKtx

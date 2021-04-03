@@ -1,2 +1,2 @@
 rootProject.name = "CSCounters"
-include ':app'
+include ':app', ':common'
