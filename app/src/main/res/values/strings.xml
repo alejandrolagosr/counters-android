@@ -17,5 +17,15 @@
     <string name="text_error_no_internet_title">Couldn´t load the counters</string>
     <string name="text_error_no_internet_desc">The Internet connection appears to be offline.</string>
     <string name="text_error_retry">Retry</string>
+    
+    <!-- Create Item -->
+    <string name="text_create_name">Name</string>
+    <string name="text_create_example_desc">Give it a name. Creative block? <u>See examples.</u></string>
+
+    <!-- Examples -->
+    <string name="text_examples_desc">Select an example to add it to your counters.</string>
+    <string name="text_examples_drinks">Drinks</string>
+    <string name="text_examples_food">Food</string>
+    <string name="text_examples_misc">Misc</string>
 
 </resources>

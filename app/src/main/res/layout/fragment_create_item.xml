@@ -6,12 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".create.CreateItemFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_create_item"
+        android:layout_width="@dimen/no_width"
         android:layout_height="wrap_content"
-        android:text="Create Item Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="@string/text_create_name"
+        android:padding="@dimen/padding_20"
+        android:textColorHint="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_create_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="@integer/max_length_counter_text"
+            tools:text="Cups of coffee" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/text_create_item_see_examples"
+        style="@style/TextAppearance.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_25"
+        android:padding="@dimen/padding_5"
+        android:text="@string/text_create_example_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_create_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

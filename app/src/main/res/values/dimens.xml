@@ -22,7 +22,9 @@
     <dimen name="margin_50">50dp</dimen>
 
     <!-- Padding -->
+    <dimen name="padding_5">5dp</dimen>
     <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
 
     <!-- Height -->
     <dimen name="height_button_default">48dp</dimen>
