@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Elevation -->
+    <dimen name="elevation_action_bar">0dp</dimen>
+
+    <!-- Font Size -->
+    <dimen name="font_size_toolbar">20sp</dimen>
+
+    <!-- Letter Spacing -->
+    <dimen name="letter_spacing_default">0.02</dimen>
+
+
+</resources>
