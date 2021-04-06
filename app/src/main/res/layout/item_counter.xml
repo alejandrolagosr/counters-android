@@ -7,7 +7,7 @@
     android:padding="@dimen/padding_10">
 
     <TextView
-        android:id="@+id/text_counter_name"
+        android:id="@+id/text_counter_title"
         style="@style/TextAppearance.Common"
         android:layout_width="@dimen/no_width"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/text_counter"
         app:layout_constraintEnd_toStartOf="@+id/text_counter"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text_counter_name"
+        app:layout_constraintStart_toEndOf="@+id/text_counter_title"
         app:layout_constraintTop_toTopOf="@+id/text_counter" />
 
     <TextView
