@@ -11,7 +11,7 @@
         android:label="WelcomeFragment">
         <action
             android:id="@+id/action_welcome_fragment_dest_to_main_fragment_dest"
-            app:destination="@id/main_fragment_dest"
+            app:destination="@id/counters_fragment_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
@@ -20,11 +20,11 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/main_fragment_dest"
-        android:name="com.flagos.cscounters.main.MainFragment"
+        android:id="@+id/counters_fragment_dest"
+        android:name="com.flagos.cscounters.main.CountersFragment"
         android:label="MainFragment">
         <action
-            android:id="@+id/action_main_fragment_dest_to_create_item_fragment_dest"
+            android:id="@+id/action_counters_dest_to_create_item_dest"
             app:destination="@id/create_item_fragment_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@android:anim/fade_out"

@@ -35,4 +35,7 @@
     <!-- Alpha -->
     <dimen name="alpha_view_translucent">0.5</dimen>
 
+    <!-- Elevation -->
+    <dimen name="elevation_counters_search">5dp</dimen>
+
 </resources>

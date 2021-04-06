@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.MainFragment">
+    tools:context=".main.CountersFragment">
 
     <EditText
-        android:id="@+id/edit_text_main_search_counters"
+        android:id="@+id/edit_text_counters_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_10"
@@ -17,8 +17,9 @@
         android:backgroundTint="@color/white"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/padding_10"
-        android:hint="@string/text_main_search_counters"
+        android:hint="@string/text_counters_search"
         android:importantForAutofill="no"
+        android:elevation="@dimen/elevation_counters_search"
         android:inputType="text"
         android:padding="@dimen/padding_10"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,19 +27,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_main_items"
+        android:id="@+id/text_counter_items"
         style="@style/TextAppearance.Common"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginStart="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_10"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_main_search_counters"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_counters_search"
         tools:text="4 items" />
 
     <TextView
-        android:id="@+id/text_main_times"
+        android:id="@+id/text_counter_times"
         style="@style/TextAppearance.Common"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,12 +47,12 @@
         android:layout_marginTop="@dimen/margin_10"
         android:textColor="@color/gray"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/text_main_items"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_main_search_counters"
+        app:layout_constraintStart_toEndOf="@+id/text_counter_items"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_counters_search"
         tools:text="17 times" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_main"
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_10"
@@ -59,20 +60,30 @@
         android:layout_marginEnd="@dimen/margin_10"
         android:overScrollMode="never"
         android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_main_items"
+        app:layout_constraintTop_toBottomOf="@+id/text_counter_items"
         tools:listitem="@layout/item_counter" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_main_add_counter"
+        android:id="@+id/button_counter_add"
         style="@style/Widget.App.Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_30"
-        android:text="@string/text_main_add_counter"
+        android:text="@string/text_counters_add"
         app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        android:id="@+id/layout_loader"
+        layout="@layout/layout_loader"
+        android:visibility="gone" />
+
+    <include android:id="@+id/layout_error"
+        layout="@layout/layout_error"
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

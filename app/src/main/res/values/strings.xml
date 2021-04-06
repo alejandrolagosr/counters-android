@@ -7,9 +7,11 @@
     <string name="text_welcome_desc">Capture cups of lattes, frapuccinos,\nor anything else that can be counted.</string>
     <string name="text_welcome_get_started">GET STARTED</string>
 
-    <!-- Main -->
-    <string name="text_main_add_counter">ADD COUNTER</string>
-    <string name="text_main_search_counters">Search Counters</string>
+    <!-- Counters Main -->
+    <string name="text_counters_add">ADD COUNTER</string>
+    <string name="text_counters_search">Search Counters</string>
+    <string name="text_counters_count">%1$s items</string>
+    <string name="text_counters_times">%1$s times</string>
 
     <!-- Errors -->
     <string name="text_error_no_counters_title">No counters yet</string>
