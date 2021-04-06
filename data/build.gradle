@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    def generalDependencies = rootProject.ext.generalDependencies
+    implementation generalDependencies.kotlin
+    implementation generalDependencies.coreKtx
+    implementation generalDependencies.coroutines
+    implementation generalDependencies.retrofit
+    implementation generalDependencies.retrofit_converter
+}
