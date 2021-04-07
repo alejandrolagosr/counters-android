@@ -2,7 +2,7 @@ package com.flagos.cscounters.examples.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.flagos.cscounters.databinding.ItemExamplesBinding
-import com.flagos.cscounters.examples.model.ExampleItems
+import com.flagos.cscounters.examples.model.CategoryUiItem
 import com.google.android.material.chip.Chip
 
 class ExamplesViewHolder(
@@ -10,7 +10,7 @@ class ExamplesViewHolder(
     private val onExampleCallback: ((String) -> Unit)
 ): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ExampleItems.CategoryItem) {
+    fun bind(item: CategoryUiItem) {
         with(binding) {
             textExampleCategory.text = item.categoryName
             item.examples.forEach {

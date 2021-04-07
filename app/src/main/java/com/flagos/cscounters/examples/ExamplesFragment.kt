@@ -14,13 +14,15 @@ import com.flagos.common.extensions.setUpFragmentToolBar
 import com.flagos.cscounters.R
 import com.flagos.cscounters.databinding.FragmentExamplesBinding
 import com.flagos.cscounters.examples.adapter.ExamplesAdapter
-import com.flagos.cscounters.examples.mapper.CategoryItemMapper
-import com.flagos.cscounters.examples.model.ExampleItems
+import com.flagos.cscounters.examples.mapper.CategoryItemUiMapper
+import com.flagos.cscounters.examples.model.CategoryUiItem
 
 class ExamplesFragment : Fragment() {
 
+    private val viewModel by lazy { getViewModel { ExamplesViewModel(CategoryItemUiMapper()) } }
+
     private lateinit var navController: NavController
-    private val viewModel by lazy { getViewModel { ExamplesViewModel(CategoryItemMapper()) } }
+    private lateinit var examplesAdapter: ExamplesAdapter
 
     private var _binding: FragmentExamplesBinding? = null
     private val binding get() = _binding!!
@@ -35,6 +37,7 @@ class ExamplesFragment : Fragment() {
         navController = findNavController()
 
         initToolbar()
+        initViews()
         initObservers()
     }
 
@@ -43,18 +46,23 @@ class ExamplesFragment : Fragment() {
         binding.toolbar.toolbarSingleTitle.setNavigationOnClickListener { goBack() }
     }
 
-    private fun initObservers() {
-        with(viewModel) {
-            fetchCategories()
-            onCategoriesRetrieved.observe(viewLifecycleOwner) { items -> initRecycler(items) }
-        }
-    }
-
-    private fun initRecycler(items: List<ExampleItems.CategoryItem>) {
-        binding.recycler.adapter = ExamplesAdapter(items) { example ->
+    private fun initViews() {
+        examplesAdapter = ExamplesAdapter { example ->
             navController.saveBackStackEntryState(SELECTED_EXAMPLE_KEY, example)
             goBack()
         }
+        binding.recycler.adapter = examplesAdapter
+    }
+
+    private fun initObservers() {
+        with(viewModel) {
+            fetchCategories()
+            onCategoriesRetrieved.observe(viewLifecycleOwner) { items -> examplesAdapter.submitList(items) }
+        }
+    }
+
+    private fun initRecycler(items: List<CategoryUiItem>) {
+        binding.recycler.adapter = examplesAdapter
     }
 
     private fun goBack() = navController.navigateUp()
