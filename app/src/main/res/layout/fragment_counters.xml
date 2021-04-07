@@ -17,9 +17,10 @@
         android:backgroundTint="@color/white"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/padding_10"
-        android:hint="@string/text_counters_search"
-        android:importantForAutofill="no"
         android:elevation="@dimen/elevation_counters_search"
+        android:hint="@string/text_counters_search"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:padding="@dimen/padding_10"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +84,8 @@
         layout="@layout/layout_loader"
         android:visibility="gone" />
 
-    <include android:id="@+id/layout_error"
+    <include
+        android:id="@+id/layout_error"
         layout="@layout/layout_error"
         android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

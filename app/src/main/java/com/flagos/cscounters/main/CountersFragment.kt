@@ -1,14 +1,18 @@
 package com.flagos.cscounters.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import com.flagos.common.extensions.hideKeyboard
 import com.flagos.cscounters.R
 import com.flagos.cscounters.databinding.FragmentCountersBinding
 import com.flagos.cscounters.helpers.NetworkHelper
@@ -46,14 +50,40 @@ class CountersFragment : Fragment() {
 
     private fun initViews() {
         countersAdapter = CountersAdapter(
-            onIncrementCallback = { id -> viewModel.incrementCounter(id) },
-            onDecrementCallback = { id -> viewModel.decrementCounter(id) }
+            onIncrementCallback = { id ->
+                resetSearchText()
+                viewModel.incrementCounter(id)
+            },
+            onDecrementCallback = { id ->
+                resetSearchText()
+                viewModel.decrementCounter(id)
+            }
         )
 
-        with(binding) {
-            buttonCounterAdd.setOnClickListener { goToCreateItemScreen() }
-            recycler.adapter = countersAdapter
+        binding.buttonCounterAdd.setOnClickListener { goToCreateItemScreen() }
+        binding.recycler.adapter = countersAdapter
+
+        with(binding.editTextCountersSearch) {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+                override fun afterTextChanged(s: Editable?) = Unit
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    countersAdapter.filter.filter(s.toString())
+                }
+            })
+            setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    resetSearchText()
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener false
+            }
         }
+    }
+
+    private fun resetSearchText() {
+        binding.editTextCountersSearch.setText(BLANK)
+        hideKeyboard()
     }
 
     private fun initObservers() {
@@ -72,9 +102,9 @@ class CountersFragment : Fragment() {
     }
 
 
-
     private fun onUiStateChanged(state: CountersViewModel.CountersState) {
-        when(state) {
+        //resetSearchText()
+        when (state) {
             is CountersViewModel.CountersState.OnLoading -> showLoader()
             is CountersViewModel.CountersState.OnNoContent -> onNoContent()
             is CountersViewModel.CountersState.OnNoInternet -> showNoInternetDialog(state.counterInfo)
@@ -143,7 +173,7 @@ class CountersFragment : Fragment() {
         hideEmptyState()
         hideError()
         hideLoader()
-        countersAdapter.submitList(items)
+        countersAdapter.setData(items)
     }
 
     private fun onError(errorMessage: String?) {
