@@ -61,10 +61,6 @@ class ExamplesFragment : Fragment() {
         }
     }
 
-    private fun initRecycler(items: List<CategoryUiItem>) {
-        binding.recycler.adapter = examplesAdapter
-    }
-
     private fun goBack() = navController.navigateUp()
 
     override fun onDestroy() {
