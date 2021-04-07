@@ -16,7 +16,11 @@ class CountersAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = parent.inflater
-        return CounterViewHolder(ItemCounterBinding.inflate(inflater, parent, false), onIncrementCallback, onDecrementCallback)
+        return CounterViewHolder(
+            ItemCounterBinding.inflate(inflater, parent, false),
+            onIncrementCallback,
+            onDecrementCallback
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)  {
