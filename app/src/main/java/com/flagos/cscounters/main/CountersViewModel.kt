@@ -32,7 +32,9 @@ class CountersViewModel(
     val onCountersStateChanged: LiveData<CountersState>
         get() = _onCountersStateChanged
 
-    init { fetchCounters() }
+    init {
+        fetchCounters()
+    }
 
     fun fetchCounters() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -108,11 +110,11 @@ class CountersViewModel(
         counterId?.let { if (actionType == INCREMENT) incrementCounter(counterId) else decrementCounter(counterId) }
     }
 
-    sealed class CountersState() {
-        object OnLoading: CountersState()
-        object OnNoContent: CountersState()
-        data class OnNoInternet(val counterInfo: Pair<CounterUiItem, CounterActionType>): CountersState()
-        data class OnError(val message: String): CountersState()
-        data class OnSuccess(val countersList: List<CounterUiItem>): CountersState()
+    sealed class CountersState {
+        object OnLoading : CountersState()
+        object OnNoContent : CountersState()
+        data class OnNoInternet(val counterInfo: Pair<CounterUiItem, CounterActionType>) : CountersState()
+        data class OnError(val message: String) : CountersState()
+        data class OnSuccess(val countersList: List<CounterUiItem>) : CountersState()
     }
 }
