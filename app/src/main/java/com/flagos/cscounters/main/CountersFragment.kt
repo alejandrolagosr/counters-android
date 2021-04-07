@@ -18,7 +18,8 @@ import com.flagos.cscounters.main.model.CounterUiItem
 import com.flagos.data.api.ApiHelper
 import com.flagos.data.api.RetrofitBuilder
 import com.flagos.data.repository.CountersRepository
-import com.flagos.data.utils.Status
+
+private const val BLANK = ""
 
 class CountersFragment : Fragment() {
 
@@ -58,15 +59,7 @@ class CountersFragment : Fragment() {
     private fun initObservers() {
         with(viewModel) {
             onCounterInfoRetrieved.observe(viewLifecycleOwner) { countersInfo -> setCountersInfoTexts(countersInfo) }
-            onNoCountersAdded.observe(viewLifecycleOwner) { showEmptyState() }
-            onShowNoInternetDialog.observe(viewLifecycleOwner) { counterItem -> showNoInternetDialog(counterItem) }
-            fetchCounters().observe(viewLifecycleOwner) { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> onSuccess(resource.data)
-                    Status.ERROR -> onError(resource.message)
-                    Status.LOADING -> showLoader()
-                }
-            }
+            onCountersStateChanged.observe(viewLifecycleOwner) { state -> onUiStateChanged(state) }
         }
     }
 
@@ -74,6 +67,18 @@ class CountersFragment : Fragment() {
         with(binding) {
             textCounterItems.text = getString(R.string.text_counters_count, countersInfo.first.toString())
             textCounterTimes.text = getString(R.string.text_counters_times, countersInfo.second.toString())
+        }
+    }
+
+
+
+    private fun onUiStateChanged(state: CountersViewModel.CountersState) {
+        when(state) {
+            is CountersViewModel.CountersState.OnLoading -> showLoader()
+            is CountersViewModel.CountersState.OnNoContent -> onNoContent()
+            is CountersViewModel.CountersState.OnNoInternet -> showNoInternetDialog(state.counterInfo)
+            is CountersViewModel.CountersState.OnError -> onError(state.message)
+            is CountersViewModel.CountersState.OnSuccess -> onSuccess(state.countersList)
         }
     }
 
@@ -93,6 +98,14 @@ class CountersFragment : Fragment() {
         }
     }
 
+    private fun hideEmptyState() {
+        with(binding.layoutError) {
+            textErrorTitle.text = BLANK
+            textErrorDesc.text = BLANK
+            root.visibility = GONE
+        }
+    }
+
     private fun showError(errorMessage: String? = null) {
         with(binding.layoutError) {
             textErrorTitle.text = getString(R.string.text_error_no_internet_title)
@@ -103,8 +116,14 @@ class CountersFragment : Fragment() {
         }
     }
 
-    private fun hideEmptyState() {
-        binding.layoutError.root.visibility = GONE
+    private fun hideError() {
+        with(binding.layoutError) {
+            textErrorTitle.text = BLANK
+            textErrorDesc.text = BLANK
+            buttonErrorRetry.setOnClickListener(null)
+            buttonErrorRetry.visibility = GONE
+            root.visibility = GONE
+        }
     }
 
     private fun showNoInternetDialog(counterInfo: Pair<CounterUiItem, CounterActionType>) {
@@ -121,6 +140,7 @@ class CountersFragment : Fragment() {
 
     private fun onSuccess(items: List<CounterUiItem>?) {
         hideEmptyState()
+        hideError()
         hideLoader()
         countersAdapter.submitList(items)
     }
@@ -128,6 +148,12 @@ class CountersFragment : Fragment() {
     private fun onError(errorMessage: String?) {
         hideEmptyState()
         showError(errorMessage)
+        hideLoader()
+    }
+
+    private fun onNoContent() {
+        showEmptyState()
+        hideError()
         hideLoader()
     }
 
