@@ -58,6 +58,7 @@ class CountersFragment : Fragment() {
 
     private fun initObservers() {
         with(viewModel) {
+            fetchCounters()
             onCounterInfoRetrieved.observe(viewLifecycleOwner) { countersInfo -> setCountersInfoTexts(countersInfo) }
             onCountersStateChanged.observe(viewLifecycleOwner) { state -> onUiStateChanged(state) }
         }

@@ -32,10 +32,6 @@ class CountersViewModel(
     val onCountersStateChanged: LiveData<CountersState>
         get() = _onCountersStateChanged
 
-    init {
-        fetchCounters()
-    }
-
     fun fetchCounters() {
         viewModelScope.launch(Dispatchers.IO) {
             _onCountersStateChanged.postValue(CountersState.OnLoading)
