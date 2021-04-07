@@ -19,6 +19,9 @@
     <string name="text_error_no_internet_title">Couldn´t load the counters</string>
     <string name="text_error_no_internet_desc">The Internet connection appears to be offline.</string>
     <string name="text_error_retry">Retry</string>
+    <string name="text_error_dismiss">Dismiss</string>
+    <string name="text_error_no_internet_dialog_title">Couldn’t update the “%1$s” counter to %2$s</string>
+    <string name="text_error_no_internet_dialog_desc">The Internet connection appears to be offline.</string>
     
     <!-- Create Item -->
     <string name="text_create_name">Name</string>

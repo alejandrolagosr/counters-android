@@ -7,9 +7,11 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.flagos.cscounters.R
 import com.flagos.cscounters.databinding.FragmentCountersBinding
+import com.flagos.cscounters.helpers.NetworkHelper
 import com.flagos.cscounters.main.CountersFragmentDirections.Companion.actionCountersDestToCreateItemDest
 import com.flagos.cscounters.main.adapter.CountersAdapter
 import com.flagos.cscounters.main.model.CounterUiItem
@@ -20,9 +22,10 @@ import com.flagos.data.utils.Status
 
 class CountersFragment : Fragment() {
 
+    private val networkHelper by lazy { NetworkHelper(requireContext()) }
     private val apiHelper by lazy { ApiHelper(RetrofitBuilder.countersApi) }
     private val countersRepository by lazy { CountersRepository(apiHelper) }
-    private val viewModel by lazy { CountersViewModel(countersRepository) }
+    private val viewModel by lazy { CountersViewModel(countersRepository, networkHelper) }
 
     private lateinit var countersAdapter: CountersAdapter
 
@@ -42,8 +45,8 @@ class CountersFragment : Fragment() {
 
     private fun initViews() {
         countersAdapter = CountersAdapter(
-            onIncrementCallback = {},
-            onDecrementCallback = {}
+            onIncrementCallback = { id -> viewModel.incrementCounter(id) },
+            onDecrementCallback = { id -> viewModel.decrementCounter(id) }
         )
 
         with(binding) {
@@ -56,6 +59,7 @@ class CountersFragment : Fragment() {
         with(viewModel) {
             onCounterInfoRetrieved.observe(viewLifecycleOwner) { countersInfo -> setCountersInfoTexts(countersInfo) }
             onNoCountersAdded.observe(viewLifecycleOwner) { showEmptyState() }
+            onShowNoInternetDialog.observe(viewLifecycleOwner) { counterItem -> showNoInternetDialog(counterItem) }
             fetchCounters().observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> onSuccess(resource.data)
@@ -101,6 +105,18 @@ class CountersFragment : Fragment() {
 
     private fun hideEmptyState() {
         binding.layoutError.root.visibility = GONE
+    }
+
+    private fun showNoInternetDialog(counterInfo: Pair<CounterUiItem, CounterActionType>) {
+        val (counterItem, actionType) = counterInfo
+        val builder = AlertDialog.Builder(requireContext())
+        with(builder) {
+            setTitle(getString(R.string.text_error_no_internet_dialog_title, counterItem.title, counterItem.count.toString()))
+            setMessage(getString(R.string.text_error_no_internet_dialog_desc))
+            setPositiveButton(getString(R.string.text_error_dismiss)) { _, _ -> }
+            setNegativeButton(getString(R.string.text_error_retry)) { _, _ -> viewModel.retryAction(counterItem.id, actionType) }
+            show()
+        }
     }
 
     private fun onSuccess(items: List<CounterUiItem>?) {
