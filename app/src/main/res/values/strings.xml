@@ -2,6 +2,7 @@
 
     <!-- General -->
     <string name="app_name">Counters</string>
+    <string name="text_ok">OK</string>
 
     <!-- Welcome -->
     <string name="text_welcome_desc">Capture cups of lattes, frapuccinos,\nor anything else that can be counted.</string>
@@ -22,6 +23,8 @@
     <string name="text_error_dismiss">Dismiss</string>
     <string name="text_error_no_internet_dialog_title">Couldn’t update the “%1$s” counter to %2$s</string>
     <string name="text_error_no_internet_dialog_desc">The Internet connection appears to be offline.</string>
+    <string name="text_error_no_internet_dialog_generic_title">Couldn’t create the counter</string>
+    <string name="text_error_no_internet_dialog_generic_desc">The Internet connection appears to be offline.</string>
     
     <!-- Create Item -->
     <string name="text_create_name">Name</string>

@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -16,13 +18,22 @@ import com.flagos.common.extensions.setUpFragmentToolBar
 import com.flagos.common.extensions.showKeyboard
 import com.flagos.common.extensions.observeBackStackEntry
 import com.flagos.cscounters.R
-import com.flagos.cscounters.create.CreateItemFragmentDirections.Companion.actionCreateItemFragmentDestToExamplesFragmentDest
+import com.flagos.cscounters.create.CreateCounterFragmentDirections.Companion.actionCreateCounterDestToExamplesDest
 import com.flagos.cscounters.databinding.FragmentCreateItemBinding
 import com.flagos.cscounters.examples.ExamplesFragment.Companion.SELECTED_EXAMPLE_KEY
+import com.flagos.cscounters.helpers.NetworkHelper
+import com.flagos.data.api.ApiHelper
+import com.flagos.data.api.RetrofitBuilder
+import com.flagos.data.repository.CountersRepository
 
-class CreateItemFragment : Fragment() {
+class CreateCounterFragment : Fragment() {
 
     private lateinit var navController: NavController
+
+    private val networkHelper by lazy { NetworkHelper(requireContext()) }
+    private val apiHelper by lazy { ApiHelper(RetrofitBuilder.countersApi) }
+    private val countersRepository by lazy { CountersRepository(apiHelper) }
+    private val viewModel by lazy { CreateCounterViewModel(countersRepository, networkHelper) }
 
     private var _binding: FragmentCreateItemBinding? = null
     private val binding get() = _binding!!
@@ -44,13 +55,14 @@ class CreateItemFragment : Fragment() {
 
         initToolbar()
         initViews()
+        initObservers()
     }
 
     private fun initToolbar() {
         setUpFragmentToolBar(binding.toolbar.toolbarSingleTitle, getString(R.string.text_create_title), ToolbarType.WITH_CLOSE_BUTTON)
         binding.toolbar.toolbarSingleTitle.setNavigationOnClickListener {
             hideKeyboard()
-            navController.navigateUp()
+            goBack()
         }
     }
 
@@ -64,8 +76,30 @@ class CreateItemFragment : Fragment() {
         showKeyboard()
     }
 
+    private fun initObservers() {
+        with(viewModel) {
+            onCounterSaved.observe(viewLifecycleOwner) { goBack() }
+            onShowNoInternetDialog.observe(viewLifecycleOwner) { showNoInternetDialog() }
+            onShowError.observe(viewLifecycleOwner) { message -> showErrorToast(message) }
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        with(builder) {
+            setTitle(getString(R.string.text_error_no_internet_dialog_generic_title))
+            setMessage(getString(R.string.text_error_no_internet_dialog_generic_desc))
+            setPositiveButton(getString(R.string.text_ok)) { _, _ -> }
+            show()
+        }
+    }
+
+    private fun showErrorToast(message: String) = Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+
+    private fun goBack() = navController.navigateUp()
+
     private fun goToExamplesScreen() {
-        val action = actionCreateItemFragmentDestToExamplesFragmentDest()
+        val action = actionCreateCounterDestToExamplesDest()
         navController.navigate(action)
     }
 
@@ -77,11 +111,16 @@ class CreateItemFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.save_item -> {
-                //viewModel.onSaveItem()
+                saveCounter()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun saveCounter() {
+        val counterName = binding.editTextCreateItem.text.toString()
+        viewModel.saveCounter(counterName)
     }
 
     override fun onDestroy() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="max_length_counter_text">25</integer>
+    <integer name="max_length_counter_text">100</integer>
 
 </resources>
