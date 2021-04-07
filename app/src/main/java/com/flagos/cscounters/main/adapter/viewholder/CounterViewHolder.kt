@@ -18,8 +18,8 @@ class CounterViewHolder(
 
     init {
         with(binding) {
-            imageCounterLess.setOnClickListener { counterItem.count?.let { if (it > NO_TIMES) onDecrementCallback.invoke(counterItem.id.orEmpty()) } }
-            imageCounterMore.setOnClickListener { onIncrementCallback.invoke(counterItem.id.orEmpty()) }
+            imageCounterLess.setOnClickListener { if (counterItem.count > NO_TIMES) onDecrementCallback.invoke(counterItem.id) }
+            imageCounterMore.setOnClickListener { onIncrementCallback.invoke(counterItem.id) }
         }
     }
 
@@ -28,20 +28,12 @@ class CounterViewHolder(
         with(binding) {
             textCounterTitle.text = item.title
             textCounter.text = item.count.toString()
-
-            /*TODO: Improvement: Pass this logic to mapper
-            imageCounterLess.setImageDrawable(ContextCompat.getDrawable(binding.root.context, item.lessImageResId))
-            textCounter.setTextColor(ContextCompat.getColor(binding.root.context, item.counterTextColorResId))
-             */
-
-            item.count?.let {
-                if (item.count > NO_TIMES) {
-                    imageCounterLess.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_less))
-                    textCounter.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
-                } else {
-                    imageCounterLess.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_less_inactive))
-                    textCounter.setTextColor(ContextCompat.getColor(binding.root.context, R.color.gray))
-                }
+            if (item.count > NO_TIMES) {
+                imageCounterLess.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_less))
+                textCounter.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
+            } else {
+                imageCounterLess.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_less_inactive))
+                textCounter.setTextColor(ContextCompat.getColor(binding.root.context, R.color.gray))
             }
         }
     }

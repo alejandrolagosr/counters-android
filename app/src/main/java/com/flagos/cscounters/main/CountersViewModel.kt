@@ -50,7 +50,7 @@ class CountersViewModel(
     }
 
     private fun getCountersInfo() {
-        val times = currentCountersList.sumBy { it.count!! }
+        val times = currentCountersList.sumBy { it.count }
         val itemCount = currentCountersList.size
         if (itemCount > NO_COUNTERS) {
             _onCountersInfoRetrieved.postValue(Pair(itemCount, times))
