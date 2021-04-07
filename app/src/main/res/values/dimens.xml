@@ -23,6 +23,7 @@
 
     <!-- Padding -->
     <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
     <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_20">20dp</dimen>
 
