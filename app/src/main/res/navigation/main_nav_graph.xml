@@ -10,7 +10,7 @@
         android:name="com.flagos.cscounters.welcome.WelcomeFragment"
         android:label="WelcomeFragment">
         <action
-            android:id="@+id/action_welcome_fragment_dest_to_main_fragment_dest"
+            android:id="@+id/action_welcome_dest_to_counters_dest"
             app:destination="@id/counters_fragment_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@android:anim/fade_out"
@@ -22,30 +22,30 @@
     <fragment
         android:id="@+id/counters_fragment_dest"
         android:name="com.flagos.cscounters.main.CountersFragment"
-        android:label="MainFragment">
+        android:label="CountersFragment">
         <action
             android:id="@+id/action_counters_dest_to_create_item_dest"
-            app:destination="@id/create_item_fragment_dest"
+            app:destination="@id/create_counter_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/create_item_fragment_dest"
-        android:name="com.flagos.cscounters.create.CreateItemFragment"
-        android:label="CreateItemFragment">
+        android:id="@+id/create_counter_dest"
+        android:name="com.flagos.cscounters.create.CreateCounterFragment"
+        android:label="CreateCounterFragment">
         <action
-            android:id="@+id/action_create_item_fragment_dest_to_examples_fragment_dest"
-            app:destination="@id/examples_fragment_dest"
+            android:id="@+id/action_create_counter_dest_to_examples_dest"
+            app:destination="@id/examples_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/examples_fragment_dest"
+        android:id="@+id/examples_dest"
         android:name="com.flagos.cscounters.examples.ExamplesFragment"
-        android:label="fragment_examples"
+        android:label="ExamplesFragment"
         tools:layout="@layout/fragment_examples" />
 </navigation>

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.flagos.cscounters.databinding.FragmentWelcomeBinding
-import com.flagos.cscounters.welcome.WelcomeFragmentDirections.Companion.actionWelcomeFragmentDestToMainFragmentDest
+import com.flagos.cscounters.welcome.WelcomeFragmentDirections.Companion.actionWelcomeDestToCountersDest
 
 class WelcomeFragment : Fragment() {
 
@@ -29,7 +29,7 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun goToMainScreen() {
-        val action = actionWelcomeFragmentDestToMainFragmentDest()
+        val action = actionWelcomeDestToCountersDest()
         findNavController().navigate(action)
     }
 
