@@ -12,11 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.flagos.common.extensions.ToolbarType
-import com.flagos.common.extensions.hideKeyboard
-import com.flagos.common.extensions.setUpFragmentToolBar
-import com.flagos.common.extensions.showKeyboard
-import com.flagos.common.extensions.observeBackStackEntry
+import com.flagos.common.extensions.*
 import com.flagos.cscounters.R
 import com.flagos.cscounters.create.CreateCounterFragmentDirections.Companion.actionCreateCounterDestToExamplesDest
 import com.flagos.cscounters.databinding.FragmentCreateItemBinding
@@ -33,7 +29,7 @@ class CreateCounterFragment : Fragment() {
     private val networkHelper by lazy { NetworkHelper(requireContext()) }
     private val apiHelper by lazy { ApiHelper(RetrofitBuilder.countersApi) }
     private val countersRepository by lazy { CountersRepository(apiHelper) }
-    private val viewModel by lazy { CreateCounterViewModel(countersRepository, networkHelper) }
+    private val viewModel by lazy { getViewModel { CreateCounterViewModel(countersRepository, networkHelper) } }
 
     private var _binding: FragmentCreateItemBinding? = null
     private val binding get() = _binding!!

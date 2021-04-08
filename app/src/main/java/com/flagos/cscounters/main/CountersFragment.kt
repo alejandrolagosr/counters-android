@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.flagos.common.extensions.getViewModel
 import com.flagos.common.extensions.hideKeyboard
 import com.flagos.cscounters.R
 import com.flagos.cscounters.databinding.FragmentCountersBinding
@@ -41,7 +42,7 @@ class CountersFragment : Fragment() {
     private val networkHelper by lazy { NetworkHelper(requireContext()) }
     private val apiHelper by lazy { ApiHelper(RetrofitBuilder.countersApi) }
     private val countersRepository by lazy { CountersRepository(apiHelper) }
-    private val viewModel by lazy { CountersViewModel(countersRepository, networkHelper) }
+    private val viewModel by lazy { getViewModel { CountersViewModel(countersRepository, networkHelper) } }
 
     private lateinit var countersAdapter: CountersAdapter
     private lateinit var navController: NavController
@@ -239,8 +240,8 @@ class CountersFragment : Fragment() {
 
     private fun onNoContent() {
         actionMode?.finish()
-        showEmptyState()
         hideError()
+        showEmptyState()
         hideLoader()
     }
 
