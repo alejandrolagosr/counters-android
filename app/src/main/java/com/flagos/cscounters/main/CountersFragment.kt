@@ -1,5 +1,6 @@
 package com.flagos.cscounters.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,11 +22,19 @@ import com.flagos.cscounters.helpers.NetworkHelper
 import com.flagos.cscounters.main.CountersFragmentDirections.Companion.actionCountersDestToCreateItemDest
 import com.flagos.cscounters.main.adapter.CountersAdapter
 import com.flagos.cscounters.main.model.CounterUiItem
+import com.flagos.cscounters.main.CountersViewModel.CountersState
+import com.flagos.cscounters.main.CountersViewModel.CountersState.OnSuccess
+import com.flagos.cscounters.main.CountersViewModel.CountersState.OnGenericError
+import com.flagos.cscounters.main.CountersViewModel.CountersState.OnUpdateError
+import com.flagos.cscounters.main.CountersViewModel.CountersState.OnLoading
+import com.flagos.cscounters.main.CountersViewModel.CountersState.OnNoContent
+import com.flagos.cscounters.main.CountersViewModel.CountersState.OnDeleteError
 import com.flagos.data.api.ApiHelper
 import com.flagos.data.api.RetrofitBuilder
 import com.flagos.data.repository.CountersRepository
 
 private const val BLANK = ""
+private const val SHARE_IME_TYPE = "text/plain"
 
 class CountersFragment : Fragment() {
 
@@ -74,7 +83,7 @@ class CountersFragment : Fragment() {
                 showSearchBox()
             },
             onSelectedItemsCountChanged = { actionMode?.title = getString(R.string.text_counters_items_selected, it.toString()) },
-            onSelectedItemsAction = { _, _ -> /*call view model*/ }
+            onSelectedItemsAction = { list, actionType -> viewModel.performSelectionAction(list, actionType) }
         )
 
         binding.buttonCounterAdd.setOnClickListener { goToCreateItemScreen() }
@@ -117,6 +126,7 @@ class CountersFragment : Fragment() {
             fetchCounters()
             onCounterInfoRetrieved.observe(viewLifecycleOwner) { countersInfo -> setCountersInfoTexts(countersInfo) }
             onCountersStateChanged.observe(viewLifecycleOwner) { state -> onUiStateChanged(state) }
+            onShareCounters.observe(viewLifecycleOwner) { text -> shareCounters(text) }
         }
     }
 
@@ -127,15 +137,23 @@ class CountersFragment : Fragment() {
         }
     }
 
-
-    private fun onUiStateChanged(state: CountersViewModel.CountersState) {
+    private fun onUiStateChanged(state: CountersState) {
         when (state) {
-            is CountersViewModel.CountersState.OnLoading -> showLoader()
-            is CountersViewModel.CountersState.OnNoContent -> onNoContent()
-            is CountersViewModel.CountersState.OnNoInternet -> showNoInternetDialog(state.counterInfo)
-            is CountersViewModel.CountersState.OnError -> onError(state.message)
-            is CountersViewModel.CountersState.OnSuccess -> onSuccess(state.countersList)
+            is OnLoading -> showLoader()
+            is OnNoContent -> onNoContent()
+            is OnUpdateError -> showCantUpdateCounterDialog(state.counterInfo)
+            is OnGenericError -> onError(state.counterId, state.actionType, state.message)
+            is OnSuccess -> onSuccess(state.countersList)
+            is OnDeleteError -> showNoInternetDialog()
         }
+    }
+
+    private fun shareCounters(text: String) {
+        val shareIntent = Intent()
+        shareIntent.action = Intent.ACTION_SEND
+        shareIntent.type = SHARE_IME_TYPE
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.text_menu_share)))
     }
 
     private fun showLoader() {
@@ -162,11 +180,11 @@ class CountersFragment : Fragment() {
         }
     }
 
-    private fun showError(errorMessage: String? = null) {
+    private fun showError(counterId: String?, actionType: CounterActionType, errorMessage: String? = null) {
         with(binding.layoutError) {
-            textErrorTitle.text = getString(R.string.text_error_no_internet_title)
+            textErrorTitle.text = getString(R.string.text_error_cant_load_title)
             textErrorDesc.text = if (!errorMessage.isNullOrEmpty()) errorMessage else getString(R.string.text_error_no_internet_desc)
-            buttonErrorRetry.setOnClickListener { viewModel.fetchCounters() }
+            buttonErrorRetry.setOnClickListener { viewModel.performRetry(counterId, actionType) }
             buttonErrorRetry.visibility = VISIBLE
             root.visibility = VISIBLE
         }
@@ -182,32 +200,45 @@ class CountersFragment : Fragment() {
         }
     }
 
-    private fun showNoInternetDialog(counterInfo: Pair<CounterUiItem, CounterActionType>) {
+    private fun showCantUpdateCounterDialog(counterInfo: Pair<CounterUiItem, CounterActionType>) {
         val (counterItem, actionType) = counterInfo
         val builder = AlertDialog.Builder(requireContext())
         with(builder) {
-            setTitle(getString(R.string.text_error_no_internet_dialog_title, counterItem.title, counterItem.count.toString()))
+            setTitle(getString(R.string.text_error_cant_update_dialog_title, counterItem.title, counterItem.count.toString()))
             setMessage(getString(R.string.text_error_no_internet_dialog_desc))
             setPositiveButton(getString(R.string.text_error_dismiss)) { _, _ -> }
-            setNegativeButton(getString(R.string.text_error_retry)) { _, _ -> viewModel.retryAction(counterItem.id, actionType) }
+            setNegativeButton(getString(R.string.text_error_retry)) { _, _ -> viewModel.performRetry(counterItem.id, actionType) }
+            show()
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        with(builder) {
+            setTitle(getString(R.string.text_error_cant_delete_counter_title))
+            setMessage(getString(R.string.text_error_no_internet_dialog_desc))
+            setPositiveButton(getString(R.string.text_error_dismiss)) { _, _ -> }
             show()
         }
     }
 
     private fun onSuccess(items: List<CounterUiItem>?) {
+        actionMode?.finish()
         hideEmptyState()
         hideError()
         hideLoader()
         countersAdapter.setData(items)
     }
 
-    private fun onError(errorMessage: String?) {
+    private fun onError(counterId: String?, actionType: CounterActionType, errorMessage: String?) {
+        actionMode?.finish()
         hideEmptyState()
-        showError(errorMessage)
+        showError(counterId, actionType, errorMessage)
         hideLoader()
     }
 
     private fun onNoContent() {
+        actionMode?.finish()
         showEmptyState()
         hideError()
         hideLoader()

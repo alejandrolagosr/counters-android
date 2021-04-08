@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.flagos.common.extensions.inflater
 import com.flagos.cscounters.R
 import com.flagos.cscounters.databinding.ItemCounterBinding
-import com.flagos.cscounters.main.CounterSelectionActionType
-import com.flagos.cscounters.main.CounterSelectionActionType.SHARE
-import com.flagos.cscounters.main.CounterSelectionActionType.DELETE
+import com.flagos.cscounters.main.CounterActionType
+import com.flagos.cscounters.main.CounterActionType.SHARE
+import com.flagos.cscounters.main.CounterActionType.DELETE
 import com.flagos.cscounters.main.adapter.viewholder.CounterViewHolder
 import com.flagos.cscounters.main.model.CounterUiItem
 
@@ -23,7 +23,7 @@ class CountersAdapter(
     private val onStartContextMenu: (() -> Unit),
     private val onFinishContextMenu: (() -> Unit),
     private val onSelectedItemsCountChanged: ((Int) -> Unit),
-    private val onSelectedItemsAction: ((List<CounterUiItem>, CounterSelectionActionType) -> Unit)
+    private val onSelectedItemsAction: ((List<CounterUiItem>, CounterActionType) -> Unit)
 ) : ListAdapter<CounterUiItem, RecyclerView.ViewHolder>(CounterItemsDiff()), Filterable {
 
     private var filterCountersList = mutableListOf<CounterUiItem>()
