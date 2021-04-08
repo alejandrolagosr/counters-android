@@ -11,9 +11,10 @@
         style="@style/TextAppearance.Common"
         android:layout_width="@dimen/no_width"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_20"
         android:maxLines="3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/image_counter_less"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_counter_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna " />
@@ -28,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/text_counter"
         app:layout_constraintEnd_toStartOf="@+id/text_counter"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text_counter_title"
+        app:layout_constraintStart_toEndOf="@+id/guideline_counter_text"
         app:layout_constraintTop_toTopOf="@+id/text_counter" />
 
     <TextView
@@ -56,4 +57,29 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/text_counter"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_counter_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_selected"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_counter_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="image_counter_less, image_counter_more, text_counter" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_counter_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

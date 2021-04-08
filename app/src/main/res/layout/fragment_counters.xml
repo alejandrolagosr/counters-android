@@ -6,26 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".main.CountersFragment">
 
-    <EditText
-        android:id="@+id/edit_text_counters_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10"
-        android:layout_marginTop="@dimen/margin_10"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:background="@drawable/background_search"
-        android:backgroundTint="@color/white"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="@dimen/padding_10"
-        android:elevation="@dimen/elevation_counters_search"
-        android:hint="@string/text_counters_search"
-        android:imeOptions="actionDone"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:padding="@dimen/padding_10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/layout_search"
+        layout="@layout/layout_search" />
 
     <TextView
         android:id="@+id/text_counter_items"
@@ -33,10 +16,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_20"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_counters_search"
+        app:layout_constraintTop_toBottomOf="@+id/layout_search"
         tools:text="4 items" />
 
     <TextView
@@ -45,23 +28,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_10"
-        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_20"
         android:textColor="@color/gray"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/text_counter_items"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_counters_search"
+        app:layout_constraintTop_toBottomOf="@+id/layout_search"
         tools:text="17 times" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/no_height"
         android:layout_marginStart="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_10"
         android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_20"
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/button_counter_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_counter_items"
@@ -72,7 +57,7 @@
         style="@style/Widget.App.Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_30"
+        android:layout_marginBottom="@dimen/margin_20"
         android:text="@string/text_counters_add"
         app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"

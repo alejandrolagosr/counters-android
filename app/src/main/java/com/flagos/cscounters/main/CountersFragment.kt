@@ -3,6 +3,7 @@ package com.flagos.cscounters.main
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.ActionMode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.flagos.common.extensions.hideKeyboard
 import com.flagos.cscounters.R
@@ -33,6 +35,9 @@ class CountersFragment : Fragment() {
     private val viewModel by lazy { CountersViewModel(countersRepository, networkHelper) }
 
     private lateinit var countersAdapter: CountersAdapter
+    private lateinit var navController: NavController
+
+    private var actionMode: ActionMode? = null
 
     private var _binding: FragmentCountersBinding? = null
     private val binding get() = _binding!!
@@ -44,6 +49,8 @@ class CountersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = findNavController()
+
         initViews()
         initObservers()
     }
@@ -51,19 +58,29 @@ class CountersFragment : Fragment() {
     private fun initViews() {
         countersAdapter = CountersAdapter(
             onIncrementCallback = { id ->
-                resetSearchText()
+                resetSearchBox()
                 viewModel.incrementCounter(id)
             },
             onDecrementCallback = { id ->
-                resetSearchText()
+                resetSearchBox()
                 viewModel.decrementCounter(id)
-            }
+            },
+            onStartContextMenu = {
+                actionMode = requireActivity().startActionMode(countersAdapter.actionModeCallback)
+                hideSearchBox()
+            },
+            onFinishContextMenu = {
+                actionMode?.finish()
+                showSearchBox()
+            },
+            onSelectedItemsCountChanged = { actionMode?.title = getString(R.string.text_counters_items_selected, it.toString()) },
+            onSelectedItemsAction = { _, _ -> /*call view model*/ }
         )
 
         binding.buttonCounterAdd.setOnClickListener { goToCreateItemScreen() }
         binding.recycler.adapter = countersAdapter
 
-        with(binding.editTextCountersSearch) {
+        with(binding.layoutSearch.editTextCountersSearch) {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
                 override fun afterTextChanged(s: Editable?) = Unit
@@ -73,7 +90,7 @@ class CountersFragment : Fragment() {
             })
             setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    resetSearchText()
+                    resetSearchBox()
                     return@setOnEditorActionListener true
                 }
                 return@setOnEditorActionListener false
@@ -81,9 +98,18 @@ class CountersFragment : Fragment() {
         }
     }
 
-    private fun resetSearchText() {
-        binding.editTextCountersSearch.setText(BLANK)
+    private fun resetSearchBox() {
+        binding.layoutSearch.editTextCountersSearch.setText(BLANK)
         hideKeyboard()
+    }
+
+    private fun hideSearchBox() {
+        resetSearchBox()
+        binding.layoutSearch.editTextCountersSearch.visibility = GONE
+    }
+
+    private fun showSearchBox() {
+        binding.layoutSearch.editTextCountersSearch.visibility = VISIBLE
     }
 
     private fun initObservers() {
@@ -103,7 +129,6 @@ class CountersFragment : Fragment() {
 
 
     private fun onUiStateChanged(state: CountersViewModel.CountersState) {
-        //resetSearchText()
         when (state) {
             is CountersViewModel.CountersState.OnLoading -> showLoader()
             is CountersViewModel.CountersState.OnNoContent -> onNoContent()
@@ -190,7 +215,7 @@ class CountersFragment : Fragment() {
 
     private fun goToCreateItemScreen() {
         val action = actionCountersDestToCreateItemDest()
-        findNavController().navigate(action)
+        navController.navigate(action)
     }
 
     override fun onDestroy() {

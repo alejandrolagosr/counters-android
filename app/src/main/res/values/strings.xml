@@ -13,6 +13,7 @@
     <string name="text_counters_search">Search Counters</string>
     <string name="text_counters_count">%1$s items</string>
     <string name="text_counters_times">%1$s times</string>
+    <string name="text_counters_items_selected">%1$s Selected</string>
 
     <!-- Errors -->
     <string name="text_error_no_counters_title">No counters yet</string>
@@ -30,7 +31,11 @@
     <string name="text_create_name">Name</string>
     <string name="text_create_example_desc">Give it a name. Creative block? <u>See examples.</u></string>
     <string name="text_create_title">Create counter</string>
-    <string name="text_create_save">Save</string>
+
+    <!-- Menus -->
+    <string name="text_menu_save">Save</string>
+    <string name="text_menu_share">Share</string>
+    <string name="text_menu_delete">Delete</string>
 
     <!-- Examples -->
     <string name="text_examples_desc">Select an example to add it to your counters.</string>
