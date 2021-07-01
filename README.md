@@ -26,3 +26,10 @@ The project will start growing keeping in mind this, for now we don't have many 
 $ npm install
 $ npm start
 ```
+## Screenshots
+
+| Splash Screen | Create Counter |
+| --- | --- | 
+|  ![Screenshot_1625108531](https://user-images.githubusercontent.com/7938140/124061982-849c9000-d9f5-11eb-9771-bc4d203fc80d.png) | ![Screenshot_1625108582](https://user-images.githubusercontent.com/7938140/124062094-c299b400-d9f5-11eb-8803-63814a169347.png)
+| Examples | Errors |
+| ![Screenshot_1625108585](https://user-images.githubusercontent.com/7938140/124062342-31770d00-d9f6-11eb-8b74-fd3f0eafb0e2.png) |  ![Screenshot_1625108516](https://user-images.githubusercontent.com/7938140/124062355-38058480-d9f6-11eb-9411-c95f42b0e13f.png) |
