@@ -10,5 +10,4 @@
     <!-- Letter Spacing -->
     <dimen name="letter_spacing_default">0.02</dimen>
 
-
 </resources>

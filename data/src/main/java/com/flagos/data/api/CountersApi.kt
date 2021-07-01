@@ -3,7 +3,6 @@ package com.flagos.data.api
 import com.flagos.data.model.CounterItem
 import retrofit2.http.*
 
-
 interface CountersApi {
 
     @GET("/api/v1/counters")
@@ -18,7 +17,6 @@ interface CountersApi {
     @POST("/api/v1/counter/dec")
     suspend fun decrement(@Body counterItem: CounterItem): List<CounterItem>
 
-    //@DELETE("/api/v1/counter")
     @HTTP(method = "DELETE", path = "/api/v1/counter", hasBody = true)
     suspend fun delete(@Body counterItem: CounterItem): List<CounterItem>
 }
